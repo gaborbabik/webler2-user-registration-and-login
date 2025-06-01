@@ -26,7 +26,6 @@ class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
-    private Mapper mapper;
 
     @Test
     @DisplayName("Given users when find all users then return all users")
