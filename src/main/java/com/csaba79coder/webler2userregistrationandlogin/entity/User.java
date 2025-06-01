@@ -11,7 +11,7 @@ import lombok.*;
 @Table(name = "webler_user")
 public class User {
 
-        @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;

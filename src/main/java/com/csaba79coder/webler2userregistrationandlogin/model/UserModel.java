@@ -2,8 +2,7 @@ package com.csaba79coder.webler2userregistrationandlogin.model;
 
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserModel {
