@@ -29,8 +29,8 @@ class UserServiceTest {
     @DisplayName("Given users when find all users then return all users")
     public void givenUsers_whenFindAllUsers_thenReturnAllUsers() {
         // Given
-        User user = new User(1L, "gabor@gmail.com", "Gabor", "password");
-        List<User> mockUsers = List.of(user);
+        List<User> mockUsers = List.of(
+                new User(1L, "gabor@gmail.com", "Gabor", "password"));
 
         when(userRepository.findAll()).thenReturn(mockUsers);
 
@@ -39,7 +39,8 @@ class UserServiceTest {
 
         // Then
         //assertEquals(expectedModels, users);
-        List<UserModel> expectedUserModels = List.of(new UserModel(1L, "gabor@gmail.com", "Gabor"));
+        List<UserModel> expectedUserModels = List.of(
+                new UserModel(1L, "gabor@gmail.com", "Gabor"));
 
         assertThat(users)
                 .usingRecursiveFieldByFieldElementComparator()
