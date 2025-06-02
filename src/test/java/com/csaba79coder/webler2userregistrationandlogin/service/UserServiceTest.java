@@ -3,7 +3,6 @@ package com.csaba79coder.webler2userregistrationandlogin.service;
 import com.csaba79coder.webler2userregistrationandlogin.entity.User;
 import com.csaba79coder.webler2userregistrationandlogin.model.UserModel;
 import com.csaba79coder.webler2userregistrationandlogin.persistence.UserRepository;
-import com.csaba79coder.webler2userregistrationandlogin.util.Mapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,9 +12,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -34,17 +32,21 @@ class UserServiceTest {
         User user = new User(1L, "gabor@gmail.com", "Gabor", "password");
         List<User> mockUsers = List.of(user);
 
-        List<UserModel> expectedModels = mockUsers.stream()
-                .map(Mapper::mapUserEntityToUserModel)
-                .toList();
-
         when(userRepository.findAll()).thenReturn(mockUsers);
 
         // When
         List<UserModel> users = userService.renderAllUsers();
 
         // Then
-        assertEquals(expectedModels, users);
-    }
+        //assertEquals(expectedModels, users);
+        List<UserModel> expectedUserModels = List.of(new UserModel(1L, "gabor@gmail.com", "Gabor"));
 
+        assertThat(users)
+                .usingRecursiveFieldByFieldElementComparator()
+                .containsExactlyElementsOf(expectedUserModels);
+
+        assertThat(users)
+                .usingRecursiveComparison()
+                .isEqualTo(expectedUserModels);
+    }
 }
